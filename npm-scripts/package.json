@@ -1,0 +1,16 @@
+{
+  "name": "npm-scripts",
+  "version": "1.0.0",
+  "description": "Node.js guide",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "start-server": "node server.js"
+  },
+  "author": "Kiran",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

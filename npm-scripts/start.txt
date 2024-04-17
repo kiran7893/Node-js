@@ -1,0 +1,68 @@
+commands
+
+command -npm init
+
+{
+  "name": "npm-scripts",
+  "version": "1.0.0",
+  "description": "Node.js guide",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    
+  },
+  "author": "Kiran",
+  "license": "ISC"
+}
+
+intialize start in scripts
+
+
+{
+  "name": "npm-scripts",
+  "version": "1.0.0",
+  "description": "Node.js guide",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node server.js"
+
+  },
+  "author": "Kiran",
+  "license": "ISC"
+}
+
+
+command-npm start
+//start is default
+
+//to run customs of your own
+intialize start-server in scripts
+
+
+{
+  "name": "npm-scripts",
+  "version": "1.0.0",
+  "description": "Node.js guide",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node server.js"
+    "start-server": "node server.js"
+
+  },
+  "author": "Kiran",
+  "license": "ISC"
+}
+
+command -npm run start-server
+
+
+//command to install  nodemon
+npm install nodemon --save-dev #project
+npm install nodemon -g
+ "author": "Kiran",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
