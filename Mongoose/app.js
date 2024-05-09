@@ -32,25 +32,62 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+// mongoose
+//   .connect(
+//     "mongodb+srv://User1:S1234@cluster0.s1mnznz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+//   )
+//   .then((result) => {
+//     User.findOne().then((user) => {
+//       if (!user) {
+//         const user = new User({
+//           name: "Kiran",
+//           email: "Kiran@test.com",
+//           cart: {
+//             items: [],
+//           },
+//         });
+//         user.save();
+//       }
+//     });
+//     app.listen(3000);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+// Connection URI with the recommended options
+const uri =
+  "mongodb+srv://User1:S1234@cluster0.s1mnznz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// Connect to MongoDB Atlas
 mongoose
-  .connect(
-    "mongodb+srv://myadaramsaikiran:b88cFroQ51GduA9K@cluster0.s1mnznz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
-  .then((result) => {
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    writeConcern: { w: "majority" },
+  })
+  .then(() => {
+    console.log("Connected to MongoDB Atlas");
+
+    // Find or create a user document
     User.findOne().then((user) => {
       if (!user) {
-        const user = new User({
+        const newUser = new User({
           name: "Kiran",
           email: "Kiran@test.com",
           cart: {
             items: [],
           },
         });
-        user.save();
+        newUser.save();
       }
     });
-    app.listen(3000);
+
+    // Start the server
+    app.listen(3000, () => {
+      console.log("Server is running on port 3000");
+    });
   })
   .catch((err) => {
-    console.log(err);
+    console.error("Error connecting to MongoDB Atlas:", err);
   });
