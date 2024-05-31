@@ -10,7 +10,25 @@ router.get("/login", authController.getLogin);
 
 router.get("/signup", authController.getSignup);
 
-router.post("/login", authController.postLogin);
+router.post(
+  "/login",
+  [
+    check("email").isEmail().withMessage("please enter valid email..!!"),
+    //   .custom((val, { req }) => {
+    //    return User.findOne({ email: val }).then((userDoc) => {
+    //       if (userDoc) {
+    //         return Promise.reject(
+    //           "E-Mail exists already, please pick a different one."
+    //         );
+    //       }
+    //     });
+    //   }),
+    body("password", "Password has to be valid")
+      .isLength({ min: 6, max: 8 })
+      .isAlphanumeric(),
+  ],
+  authController.postLogin
+);
 
 router.post(
   "/signup",

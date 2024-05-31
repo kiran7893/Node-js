@@ -1,0 +1,7 @@
+{
+  "env": {
+    "SENDGRID_APIKEY": "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",
+    "USER": "mongodb+srv://User1:S1234@cluster0.s1mnznz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    "PORT": 3000
+  }
+}
