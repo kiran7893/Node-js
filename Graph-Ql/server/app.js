@@ -6,10 +6,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 
-const feedRoutes = require("./routes/feed");
-const authRoutes = require("./routes/auth");
-const { Socket } = require("net");
-const { log } = require("console");
+const { createHandler } = require("graphql-http/lib/use/express");
+//const { graphqlHttp } = require("express-graphql");
+const schema = require("./graphql/schema");
+const resolver = require("./graphql/resolvers");
 
 const app = express();
 
@@ -51,8 +51,23 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/feed", feedRoutes);
-app.use("/auth", authRoutes);
+app.use(
+  "/graphql",
+  createHandler({
+    schema: schema,
+    rootValue: resolver,
+    graphiql: true,
+    formatError(err) {
+      if (!err.originalError) {
+        return err;
+      }
+      const data = err.originalError.data;
+      const message = err.message || "Error Occured";
+      const code = err.originalError.code || 500;
+      return { message: message, status: code, data: data };
+    },
+  })
+);
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -76,12 +91,8 @@ mongoose
     console.log("Connected to MongoDB Atlas");
 
     // Start the server
-    const server = app.listen(8080, () => {
+    app.listen(8080, () => {
       console.log("Server is running on port 8080");
-    });
-    const io = require("./socket").init(server);
-    io.on("connection", (socket) => {
-      console.log("Client Connected");
     });
   })
   .catch((err) => {
